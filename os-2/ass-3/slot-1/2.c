@@ -4,6 +4,8 @@ int abs_val(int x) {
     return x < 0 ? -x : x;
 }
 
+//req = [23, 18, 34, 30, 45, 80]
+
 void sstf(int req[], int n, int head) {
     int visited[100] = {0};
     int total = 0;
