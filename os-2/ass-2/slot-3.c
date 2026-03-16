@@ -10,7 +10,7 @@ struct file_detail {
 } dir[10];
 
 struct block {
-  int allocated; // 0 = free, 1 = allocated, -9 = EOF
+  int allocated; // -1 = free, 1 = allocated, -9 = EOF
   int index[20]; // data block numbers (used only by index block)
 } bit_vector[20];
 
