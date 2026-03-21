@@ -1,7 +1,6 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// Print task
 class PrintJob implements Runnable {
     private String document;
 
@@ -24,7 +23,6 @@ class PrintJob implements Runnable {
     }
 }
 
-// Main class
 public class Main2 {
     public static void main(String[] args) {
 

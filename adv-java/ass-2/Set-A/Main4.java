@@ -5,7 +5,7 @@ class MyThread extends Thread {
                 System.out.println("Child Thread: " + i);
                 Thread.sleep(1000);
             }
-        } catch (Exception e) {}
+        } catch (InterruptedException e) {}
     }
 }
 

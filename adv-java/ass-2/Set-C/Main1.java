@@ -1,14 +1,12 @@
 class BankAccount {
     private int balance = 1000;
 
-    // Deposit method
     synchronized void deposit(int amount) {
         balance += amount;
         System.out.println(Thread.currentThread().getName() +
                 " Deposited: " + amount + " | Balance: " + balance);
     }
 
-    // Withdraw method
     synchronized void withdraw(int amount) {
         if (balance >= amount) {
             balance -= amount;
@@ -21,7 +19,6 @@ class BankAccount {
     }
 }
 
-// Thread class
 class User extends Thread {
     BankAccount acc;
 
@@ -36,7 +33,6 @@ class User extends Thread {
     }
 }
 
-// Main class
 public class Main1 {
     public static void main(String[] args) {
 
