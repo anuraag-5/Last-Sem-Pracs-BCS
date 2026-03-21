@@ -1,6 +1,8 @@
 class MyThread extends Thread {
     public void run() {
-        System.out.println("Thread using Thread class is running...");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(i);
+        }
     }
 }
 

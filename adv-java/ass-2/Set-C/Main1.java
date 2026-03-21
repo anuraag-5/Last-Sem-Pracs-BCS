@@ -1,65 +1,51 @@
-class Shared {
-    int data;
-    boolean available = false;
+class BankAccount {
+    private int balance = 1000;
 
-    synchronized void produce(int value) throws InterruptedException {
-        while(available)
-            wait();
-
-        data = value;
-        System.out.println("Produced: " + value);
-
-        available = true;
-        notify();
+    // Deposit method
+    synchronized void deposit(int amount) {
+        balance += amount;
+        System.out.println(Thread.currentThread().getName() +
+                " Deposited: " + amount + " | Balance: " + balance);
     }
 
-    synchronized void consume() throws InterruptedException {
-        while(!available)
-            wait();
-
-        System.out.println("Consumed: " + data);
-
-        available = false;
-        notify();
+    // Withdraw method
+    synchronized void withdraw(int amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println(Thread.currentThread().getName() +
+                    " Withdraw: " + amount + " | Balance: " + balance);
+        } else {
+            System.out.println(Thread.currentThread().getName() +
+                    " Insufficient Balance!");
+        }
     }
 }
 
-class Producer extends Thread {
-    Shared s;
+// Thread class
+class User extends Thread {
+    BankAccount acc;
 
-    Producer(Shared s) { this.s = s; }
+    User(BankAccount acc, String name) {
+        super(name);
+        this.acc = acc;
+    }
 
     public void run() {
-        try {
-            for(int i = 1; i <= 5; i++) {
-                s.produce(i);
-            }
-        } catch(Exception e) {}
+        acc.deposit(500);
+        acc.withdraw(700);
     }
 }
 
-class Consumer extends Thread {
-    Shared s;
-
-    Consumer(Shared s) { this.s = s; }
-
-    public void run() {
-        try {
-            for(int i = 1; i <= 5; i++) {
-                s.consume();
-            }
-        } catch(Exception e) {}
-    }
-}
-
+// Main class
 public class Main1 {
     public static void main(String[] args) {
-        Shared s = new Shared();
 
-        Producer p = new Producer(s);
-        Consumer c = new Consumer(s);
+        BankAccount acc = new BankAccount();
 
-        p.start();
-        c.start();
+        User t1 = new User(acc, "User1");
+        User t2 = new User(acc, "User2");
+
+        t1.start();
+        t2.start();
     }
 }

@@ -1,16 +1,22 @@
-class JoinDemo extends Thread {
+class MyThread extends Thread {
     public void run() {
-        for(int i = 1; i <= 3; i++) {
-            System.out.println("Thread: " + i);
-        }
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Child Thread: " + i);
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {}
     }
 }
 
 public class Main4 {
     public static void main(String[] args) throws Exception {
-        JoinDemo t = new JoinDemo();
+        MyThread t = new MyThread();
         t.start();
-        t.join(); // wait for thread to finish
-        System.out.println("Main thread ends");
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Main Thread: " + i);
+            Thread.sleep(1000);
+        }
     }
 }
